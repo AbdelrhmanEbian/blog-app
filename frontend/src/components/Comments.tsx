@@ -1,5 +1,5 @@
 "use client";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import {  useMutation, useQuery } from "@apollo/client";
 import { useSession, getProviders, signIn } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";

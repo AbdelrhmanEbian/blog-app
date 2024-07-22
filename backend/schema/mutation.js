@@ -25,6 +25,33 @@ const mutaion = new GraphQLObjectType({
                 return post
             }
     },
+    updatePost:{
+        name:"updatePost",
+        type:postSchema,
+        args:{
+            title:{type:new GraphQLNonNull(GraphQLString)},
+            desc:{type:new GraphQLNonNull(GraphQLString)},
+            img:{type:new GraphQLNonNull(GraphQLString)},
+            category:{type:new GraphQLNonNull(GraphQLString)},
+            userEmail:{type: new  GraphQLNonNull(GraphQLString)},
+            id : {type: new GraphQLNonNull(GraphQLID)}
+        },
+        resolve:async(parent,args)=>{
+            const post = await Post.findByIdAndUpdate(args.id,args) 
+            return post
+        }
+},
+deletePost:{
+    name:"deletePost",
+    type:postSchema,
+    args:{
+        id : {type: new GraphQLNonNull(GraphQLID)}
+    },
+    resolve:async(parent,args)=>{
+        const post = await Post.findByIdAndDelete(args.id) 
+        return post
+    }
+},
     addComment:{
         name:"addComment",
         type:commentSchema,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import dynamic from "next/dynamic";
 import Loading from "./Loading";
@@ -16,7 +16,8 @@ const CardList = ({
   categoryName?: string;
 }) => {
   const DynamicCard = dynamic(() => import("./Card"), { ssr: false });
-  
+  const [postDeleted, setPostDeleted] = useState<boolean>(false);
+  console.log(postDeleted)
   const { data, loading, error, refetch } = useQuery(getAllPostsOnly, {
     variables: {
       page: 1,
@@ -26,13 +27,13 @@ const CardList = ({
   });
 
   useEffect(() => {
-    if (postUploaded) {
+    if (postUploaded || postDeleted) {
       refetch({
         userEmail: userEmail,
         page: 1,
       });
     }
-  }, [postUploaded, userEmail, refetch]);
+  }, [postUploaded , postDeleted , userEmail, refetch]);
   return (
     <div className="w-3/4 max-lg:w-full">
       <h1 className="font-bold text-3xl">{userEmail ? "My Posts" : "Recent Posts"}</h1>
@@ -40,7 +41,7 @@ const CardList = ({
         {data?.getAllPosts?.posts?.length ? (
           data.getAllPosts.posts.map((post: post) => (
             <div key={post.id}>
-              <DynamicCard post={post} />
+              <DynamicCard setPostDeleted={setPostDeleted} post={post} />
             </div>
           ))
         ) : (

@@ -4,7 +4,7 @@ import { image } from "./Write";
 import React, { useState }  from "react";
 type UploadButtonProps = {
   setImage: (image: image) => void;
-  uploadedPost: boolean 
+  uploadedPost: boolean | null
 };
 const UploadImage = ({ setImage , uploadedPost }: UploadButtonProps) => {
   const  [Uploaded, setUploaded] = useState<boolean>(false)

@@ -1,11 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useMutation } from "@apollo/client";
 import {post} from '../schema/type' 
-const Card = ({post}:{post:post}) => {
+import { deletePost } from "../schema/mutation";
+const Card = ({post , setPostDeleted }:{post:post; setPostDeleted : (deletedPost : boolean)=> void}) => {
   const date = (time : string) : string =>{
     return new Date(parseInt(time)).toLocaleDateString()
   }
+  const [deletePostMutation] = useMutation(deletePost);
+  const handleDelete = async () => {
+    try {
+      const { data } = await deletePostMutation({
+        variables: {
+          id: post.id,
+        },
+      });
+      setPostDeleted(true);
+      // Handle any additional logic after the post is deleted
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
   return (
     <div className=" my-7 flex gap-7 h-[250px] items-center rounded-lg hover:bg-secondary ease-in-out transition-colors duration-500 ">
       <div className=" w-1/2 h-[250px] relative">
@@ -20,12 +36,26 @@ const Card = ({post}:{post:post}) => {
         <p className=" text-[18px] max-h-20 truncate p-1 font-light text-accent ">
          {post.desc}
         </p>
+        <div className=" flex flex-row justify-between ">
         <Link
           className=" h-max hover:text-xl hover:font-semibold transition-all duration-500 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
           href={`/blog/${post.id}`}
-        >
+          >
           Read More
         </Link>
+        <Link
+          className=" h-max hover:text-xl hover:font-semibold transition-all duration-500 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
+          href={`/write/${post.id}`}
+          >
+          update post
+        </Link>
+        <button
+        onClick={handleDelete}
+          className=" h-max hover:text-xl hover:font-semibold transition-all duration-500 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
+          >
+          delete
+        </button>
+          </div>
       </div>
     </div>
   );

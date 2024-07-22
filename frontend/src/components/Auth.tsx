@@ -71,7 +71,7 @@ const Auth = () => {
                       onClick={() => {
                         signOut();
                       }}
-                      className="btn btn-sm btn-secondary"
+                      className="btn  btn-xs btn-secondary"
                     >
                       Sign Out
                     </button>
@@ -99,7 +99,7 @@ const Auth = () => {
             onClick={() => {
               signOut();
             }}
-            className="max-lg:hidden btn btn-md btn-secondary"
+            className="max-lg:hidden btn btn-sm btn-secondary"
           >
             Sign Out
           </button>
@@ -114,7 +114,7 @@ const Auth = () => {
                   signIn(provider.id);
                 }}
                 key={provider.name}
-                className="btn btn-md btn-secondary"
+                className="btn btn-sm btn-secondary"
               >
                 Sign In
               </button>
