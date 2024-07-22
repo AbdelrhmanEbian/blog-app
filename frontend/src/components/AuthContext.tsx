@@ -27,22 +27,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const fetchSession = async () => {
-      console.log("Fetching session...");
       if (session && session.user) {
-        console.log("Session data:", session);
         // Create a User object from the Session
         const user: User = {
           name: session.user.name,
           email: session.user.email,
           image: session.user.image,
         };
-        console.log("Mapped user:", user);
         // Set the user and set isAuthenticated to true
         setUser(user);
         signIn(user)
         setIsAuthenticated(true);
       } else {
-        console.log("No session or session.user found");
         setUser(null);
         setIsAuthenticated(false);
       }
@@ -51,13 +47,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [session]);
 
   const signIn = (userData: User) => {
-    console.log("Signing in user:", userData);
     setUser(userData);
     setIsAuthenticated(true);
   };
 
   const signOut = async () => {
-    console.log("Signing out");
     setUser(null);
     setIsAuthenticated(false);
   };

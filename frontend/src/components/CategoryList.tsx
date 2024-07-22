@@ -14,7 +14,7 @@ const CategoryList = ({image}:{image:boolean}) => {
           (category: { title: string; img: string }) => (
             <Link key={category.title}
               href={"/category/" + category.title}
-              className=" p-3 bg-secondary font-bold text-accent flex gap-5 items-center capitalize px-1  justify-center  rounded-lg"
+              className=" p-2 text-md bg-secondary font-bold text-accent flex gap-5 items-center capitalize px-1  justify-center  rounded-lg"
             >
 
               { image  &&(<Image

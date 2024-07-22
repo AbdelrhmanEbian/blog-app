@@ -53,7 +53,6 @@ const handleSubmit = async (user: {
 useEffect(()=>{
     if(data){
         const { img , title , category , desc , id } = data.getPost
-        console.log(img)
         setImage(img)
         setTitle(title)
         setDesc(desc)

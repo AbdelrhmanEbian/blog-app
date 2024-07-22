@@ -11,7 +11,6 @@ const Menu = () => {
       popular:true
     }
   })
-  console.log(data)
   return (
     <div className=" max-lg:hidden  w-1/4">
       <h2 className=" text-gray-400 text-lg font-[400]">{"what's hot"}</h2>

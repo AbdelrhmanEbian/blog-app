@@ -4,7 +4,7 @@ import React from "react";
 import { useMutation } from "@apollo/client";
 import {post} from '../schema/type' 
 import { deletePost } from "../schema/mutation";
-const Card = ({post , setPostDeleted }:{post:post; setPostDeleted : (deletedPost : boolean)=> void}) => {
+const Card = ({post , setPostDeleted , isWritePath}:{post:post; isWritePath:boolean ; setPostDeleted : (deletedPost : boolean)=> void}) => {
   const date = (time : string) : string =>{
     return new Date(parseInt(time)).toLocaleDateString()
   }
@@ -38,23 +38,29 @@ const Card = ({post , setPostDeleted }:{post:post; setPostDeleted : (deletedPost
         </p>
         <div className=" flex flex-row justify-between ">
         <Link
-          className=" h-max hover:text-xl hover:font-semibold transition-all duration-500 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
+          className=" h-max hover:text-xl hover:font-semibold transition-all  duration-300 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
           href={`/blog/${post.id}`}
           >
           Read More
         </Link>
+        {isWritePath &&
+        (
+        <>
         <Link
-          className=" h-max hover:text-xl hover:font-semibold transition-all duration-500 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
+          className=" h-max hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
           href={`/write/${post.id}`}
           >
           update post
         </Link>
         <button
         onClick={handleDelete}
-          className=" h-max hover:text-xl hover:font-semibold transition-all duration-500 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
+          className=" h-max hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
           >
           delete
         </button>
+        </>
+        )
+        }
           </div>
       </div>
     </div>

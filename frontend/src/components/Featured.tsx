@@ -21,7 +21,7 @@ const Featured = () => {
       {data && (
       <div className='  text-[60px] min-h-[300px]  md:flex  my-[70px] items-center gap-10'>
         <div className=' flex-1 min-h-[300px] max-xl:flex-[2]  relative '>
-        <Image src={data.getPost.img ? data.getPost.img : "/p1.jpeg"} alt='' fill className=' rounded-xl  object-contain' />
+        <Image src={data.getPost.img ? data.getPost.img : "/p1.jpeg"} alt='' fill className=' rounded-xl  object-fill' />
         </div>
         <div className=' gap-5 max-w-full flex max-md:mt-[20px] md:min-h-[300px] justify-evenly flex-col flex-1'>
           <div className=' py-1 '>

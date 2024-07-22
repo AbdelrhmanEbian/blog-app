@@ -6,18 +6,19 @@ import {post} from '../schema/type'
 import { getAllPostsOnly } from "../schema/query";
 const CardList = ({
   category,
+  isWritePath,
   postUploaded,
   categoryName,
   userEmail,
 }: {
   category?: boolean;
+  isWritePath:boolean;
   postUploaded?: boolean;
   userEmail?: string;
   categoryName?: string;
 }) => {
   const DynamicCard = dynamic(() => import("./Card"), { ssr: false });
   const [postDeleted, setPostDeleted] = useState<boolean>(false);
-  console.log(postDeleted)
   const { data, loading, error, refetch } = useQuery(getAllPostsOnly, {
     variables: {
       page: 1,
@@ -41,7 +42,7 @@ const CardList = ({
         {data?.getAllPosts?.posts?.length ? (
           data.getAllPosts.posts.map((post: post) => (
             <div key={post.id}>
-              <DynamicCard setPostDeleted={setPostDeleted} post={post} />
+              <DynamicCard isWritePath={isWritePath} setPostDeleted={setPostDeleted} post={post} />
             </div>
           ))
         ) : (

@@ -37,7 +37,6 @@ const Comments = ({ postId }: { postId: string }) => {
           id: postId,
         },
       });
-      console.log(data);
     };
     getAllProviders();
     handleAddView();

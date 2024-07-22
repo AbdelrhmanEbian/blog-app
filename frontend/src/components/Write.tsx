@@ -88,7 +88,7 @@ const Write = () => {
         Publish
       </button>
         <div ref={myPostsSectionRef} className="my-5 py-5 ">
-        <CardList  postUploaded={postCreated} userEmail={user?.email as string}/>
+        <CardList  isWritePath={true} postUploaded={postCreated} userEmail={user?.email as string}/>
       </div>
     </div>
   );

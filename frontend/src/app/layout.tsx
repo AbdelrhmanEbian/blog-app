@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
       </div>
       </div>
+      <Footer/>
       </AuthProvider>
       </Provider>
 

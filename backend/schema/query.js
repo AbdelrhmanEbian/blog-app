@@ -62,7 +62,6 @@ const query = new GraphQLObjectType({
             args: { postId: { type: new GraphQLNonNull(GraphQLID) } },
             resolve: async (parent, args) => {
                 const comments = await Comment.find({ post: args.postId })
-                console.log(comments)
                 return comments
             }
         },
@@ -85,7 +84,6 @@ const query = new GraphQLObjectType({
                 let post;
                 if (args.popular) {
                     post = await Post.find().sort('-views').limit(1)
-                    console.log(post)
                     return post[0]
                 }
                 post = await Post.findById(args.id)

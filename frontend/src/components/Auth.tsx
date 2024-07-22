@@ -10,10 +10,6 @@ const Auth = () => {
   const [providers, setProviders] = useState<any>(null);
   const { data: session, status: sessionStatus } = useSession();
   useEffect(() => {
-    console.log("Session status:", sessionStatus);
-    console.log("Session data:", session);
-    console.log("Context user:", user);
-
     const getAllProviders = async () => {
       const result: any = await getProviders();
       setProviders(result);
