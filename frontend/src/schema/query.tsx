@@ -15,16 +15,47 @@ query GetPost($id: ID!) {
   }
 }
 `;
+export const getAllPostsOnly = gql`
+    query GetAllPosts($category: String, $page: Int!) {
+      getAllPosts(category: $category, page: $page) {
+        posts{
+        id
+        title
+        desc
+        img
+        category
+        createdAt
+      }
+      currentPage
+      numberOfPages
+      }
+    }
+  `;
 export const getAllPosts = gql`
   query GetAllPosts($popular:Boolean){
     getAllPosts(popular:$popular){
       posts{id
       title
       category
+      img
       createdAt
       userEmail{
       name
       }}
+    }
+  }`
+  export const getMyPosts = gql`
+  query GetAllPosts($userEmail:String , $page: Int!){
+    getAllPosts(userEmail:$userEmail , page: $page){
+      posts{
+      id
+      title
+      category
+      img
+      createdAt
+      }
+      currentPage
+      numberOfPages
     }
   }`
   export   const GET_CATEGORIES = gql`
@@ -39,7 +70,7 @@ export const GET_COMMENT = gql`
 query getComment($postId: ID!) {
   getAllComments(postId: $postId) {
     desc
-    userId {
+    userEmail {
       image
       name
     }

@@ -7,9 +7,8 @@ const Category = new mongoose.Schema({
     },
     desc: {
         type: String,
-        required: true,
     },
-    image: String,
+    img: String,
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "posts"

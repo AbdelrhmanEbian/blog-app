@@ -97,22 +97,22 @@ const Comments = ({ postId }: { postId: string }) => {
         data.getAllComments.map(
           (oneComment: {
             desc: string;
-            userId: { name: string; image: string };
+            userEmail: { name: string; image: string };
             createdAt: string;
           }) => (
-            <div key={oneComment.userId.name} className=" mt-[30px]">
+            <div key={oneComment.userEmail.name} className="mt-[30px]">
               <div className="mb-[20px]">
-                <div key={oneComment.userId.name} className=" flex items-center gap-2 mb-2">
+                <div key={oneComment.userEmail.name} className=" flex items-center gap-2 mb-2">
                   <Image
                     className=" rounded-full object-cover aspect-square"
                     width={50}
                     height={50}
-                    src={oneComment.userId.image}
+                    src={oneComment.userEmail.image}
                     alt="image"
                   />
                   <div className=" flex gap-1 text-accent flex-col">
                     <span className=" font-medium">
-                      {oneComment.userId.name}
+                      {oneComment.userEmail.name}
                     </span>
                     <span className=" text-sm">
                       {new Date(

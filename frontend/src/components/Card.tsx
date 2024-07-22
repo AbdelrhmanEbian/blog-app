@@ -21,7 +21,7 @@ const Card = ({post}:{post:post}) => {
          {post.desc}
         </p>
         <Link
-          className=" text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
+          className=" h-max hover:text-xl hover:font-semibold transition-all duration-500 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
           href={`/blog/${post.id}`}
         >
           Read More

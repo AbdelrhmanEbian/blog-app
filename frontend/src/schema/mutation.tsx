@@ -10,7 +10,7 @@ export const createPostOnly = gql`
       createPost(
         title: $title
         img: $img
-        userId: $userId
+        userEmail: $userEmail
         category: $category
         desc: $desc
       ) {
@@ -37,7 +37,7 @@ export const createPostOnly = gql`
   }
 `;
 export const SEND_COMMENT = gql`
-mutation sendComment($comment: String!, $user: ID!, $post: ID!) {
+mutation sendComment($comment: String!, $user: String!, $post: ID!) {
   addComment(comment: $comment, user: $user, post: $post) {
     desc
   }

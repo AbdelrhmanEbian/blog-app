@@ -20,34 +20,27 @@ const query = new GraphQLObjectType({
         getAllPosts: {
             name: "getPosts",
             type: getAllPostsType ,
-            args: { category: { type: GraphQLString }, popular: { type: GraphQLBoolean }, page: { type: GraphQLInt } },
+            args: { category: { type: GraphQLString }, popular: { type: GraphQLBoolean }, page: { type: GraphQLInt }, userEmail : {type:GraphQLString} },
             resolve: async (parent, args) => {
                 let query = {};
                 if (args.category) {
                     query.category = args.category;
+                } else if (args.userEmail) {
+                    query.userEmail = args.userEmail;
                 }
-
                 const postsCount = await Post.countDocuments(query);
-
                 const postsPerPage = 3;
                 const totalPages = Math.ceil(postsCount / postsPerPage);
                 const currentPage = args.page || 1;
-
                 let posts;
-
                 if (args.popular) {
-                    posts = await Post.find(query).sort('-commentsNumber').limit(5);
+                    posts = await Post.find(query).sort('-commentsNumber').limit(3);
                 } else {
                     posts = await Post.find(query)
                         .sort('-createdAt')
                         .skip((currentPage - 1) * postsPerPage)
                         .limit(postsPerPage);
                 }
-                posts.map( async (post)=>{
-                    const User = await user.findOne({email : post.userEmail})
-                    post.userEmail = User
-                })
-                console.log(posts)
                 return {
                     posts,
                     currentPage,
@@ -68,7 +61,9 @@ const query = new GraphQLObjectType({
             type: new GraphQLList(commentSchema),
             args: { postId: { type: new GraphQLNonNull(GraphQLID) } },
             resolve: async (parent, args) => {
-                return await Comment.find({ post: args.postId })
+                const comments = await Comment.find({ post: args.postId })
+                console.log(comments)
+                return comments
             }
         },
         getCategory: {

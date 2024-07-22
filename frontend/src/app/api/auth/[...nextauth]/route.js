@@ -23,7 +23,7 @@ const handler = NextAuth({
                 const user = await User.findOne({ email: session.user.email });
                 // Set a custom id property in the session
                 session.user.id = user._id.toString();
-                return user
+                return session
         },
         async signIn({ profile }) {
             try {

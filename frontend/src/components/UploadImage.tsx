@@ -4,8 +4,9 @@ import { image } from "./Write";
 import React, { useState }  from "react";
 type UploadButtonProps = {
   setImage: (image: image) => void;
+  uploadedPost: boolean 
 };
-const UploadImage = ({ setImage }: UploadButtonProps) => {
+const UploadImage = ({ setImage , uploadedPost }: UploadButtonProps) => {
   const  [Uploaded, setUploaded] = useState<boolean>(false)
   const handleUpload = (result: any, error: string | null) => {
     if (result.event === "success" && result.info?.secure_url) {
@@ -45,8 +46,8 @@ const UploadImage = ({ setImage }: UploadButtonProps) => {
             >
             Upload an Image
           </button>
-          {Uploaded &&  (<h3 className="text-2xl my-3 text-accent font-semibold">the photo is uploaded succefully</h3>) }
-            </>
+          {Uploaded && !uploadedPost &&  (<h3 className="text-2xl my-3 text-accent font-semibold">the photo is uploaded succefully</h3>) }
+            </> 
         );
       }}
     </CldUploadWidget>

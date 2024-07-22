@@ -15,7 +15,7 @@ const { GraphQLSchema, GraphQLObjectType, GraphQLEnumType,GraphQLString,GraphQLN
         userEmail:{
             type:userSchema,
             resolve:async(parent,args)=>{
-                return await User.findById(parent.userId)
+                return await User.findOne({email : parent.userEmail})
             }
         },
         comments:{
@@ -37,7 +37,7 @@ const { GraphQLSchema, GraphQLObjectType, GraphQLEnumType,GraphQLString,GraphQLN
         userEmail:{
             type:userSchema,
             resolve:async(parent,args)=>{
-                return await User.findById(parent.userEmail)
+                return await User.findOne({email : parent.userEmail})
             }
         },
     }

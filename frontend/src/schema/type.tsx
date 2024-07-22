@@ -7,7 +7,7 @@ export type User = {
     category: string;
     desc: string;
     id: string;
-    img?: string;
+    img: string;
     title: string;
     createdAt: string;
     userEmail: {
