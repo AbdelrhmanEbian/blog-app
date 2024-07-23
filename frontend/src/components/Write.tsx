@@ -1,13 +1,14 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import PostForm from "./postForm";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useSession } from "next-auth/react";
 import { createPostOnly } from "../schema/mutation";
 import { GET_CATEGORIESOnly, getAllPosts, getMyPosts } from "../schema/query";
 import { post } from "../schema/type";
 import { useAuth } from "./AuthContext";
 import CardList from "./CardList";
+import  { useRouter } from "next/navigation";
 export type image = {
   fileName: string;
   publicId: string;
@@ -26,6 +27,12 @@ const Write = () => {
   const [createPost] = useMutation(createPostOnly);
   const { data: session } = useSession();
   const myPostsSectionRef = useRef<HTMLDivElement>(null);
+  const router = useRouter()
+  useEffect(() => {
+    if (!user?.email) {
+      router.push('/');
+    }
+  }, [user])
   const handleSubmit = async (user: {
     name?: string | null | undefined;
     email?: string | null | undefined;

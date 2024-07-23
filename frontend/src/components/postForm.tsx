@@ -8,7 +8,7 @@ type postFormProps = {
     setImage: (image: image) => void | null;
     uploadedPost: boolean | null;
     error:string | null
-    updatedPost: string | null
+    updatedPost: boolean | null
     postId:string|null
     setTitle: (title: string)=> void | null
     setDesc: (desc: string)=> void | null

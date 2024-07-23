@@ -7,6 +7,7 @@ import { getPost } from '../schema/query';
 import { image } from './Write';
 import { useSession } from 'next-auth/react';
 import { updatePostOnly } from '../schema/mutation';
+import { useRouter } from 'next/navigation';
 
 function updatePost({ params }: { params: { id: string } }) {
     const {data:session } = useSession()
@@ -16,6 +17,7 @@ function updatePost({ params }: { params: { id: string } }) {
             id:params.id
         }
 })
+const router = useRouter();
 const [ reCreatePost] = useMutation(updatePostOnly)
 const [Image, setImage] = useState<null | image>(null);
 const [category, setCategory] = useState<undefined | string>(undefined);
@@ -33,7 +35,7 @@ const handleSubmit = async (user: {
       setError("please fill all fields");
       return;
     }
-    setError("");
+    setError("");    
     const { data } = await reCreatePost({
       variables: {
         title: title,
@@ -60,10 +62,17 @@ useEffect(()=>{
         setPostId(id)
     }
 }, [data , user])
+useEffect(() => {
+  if (user?.email !== params.id) {
+    router.push('/');
+  }
+}, [params.id])
+
     return (
     <div>
         <PostForm
         setTitle={setTitle}
+        uploadedPost={false}
         setCategory={setCategory}
         setDesc={setDesc}
         error={Error}
