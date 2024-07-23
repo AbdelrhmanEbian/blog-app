@@ -24,7 +24,7 @@ const Menu = () => {
             initial={{opacity:0.5 , scale : 0.8 , y: -30 }}
             whileInView={{opacity:1 , scale : 1 , y: 0 }}
             viewport={{ once: true, amount: 0.1 }} 
-            transition={{ duration: 1 , delay: index * 0.3 , type:'tween' }}>
+            transition={{ duration: 1 , delay: index * 0.15 , type:'tween' }}>
 
           <Link href={"/blog/"+post.id} key={post.id}>
           <div className=" mx-auto p-4 rounded-lg hover:bg-secondary transition-colors ease-in-out duration-500 flex flex-col gap-2 flex-nowrap " >

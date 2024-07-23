@@ -7,7 +7,7 @@ import { useAuth } from "./AuthContext";
 import {User} from "../schema/type";
 import { GET_COMMENT } from "../schema/query";
 import { SEND_COMMENT, addViewMutaion } from "../schema/mutation";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Comments = ({ postId }: { postId: string }) => {
   const { user } = useAuth();

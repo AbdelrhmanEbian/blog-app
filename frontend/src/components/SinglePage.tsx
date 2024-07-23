@@ -19,7 +19,7 @@ const SinglePage = ({ params }: { params: { id: string } }) => {
       {data ? (
         <div>
           <div className=" flex items-center gap-16">
-            <div className="flex-1 min-h-[350px] justify-between py-3 flex flex-col">
+            <div className="flex-1 md:w-1/2 min-h-[350px] justify-between py-3 flex flex-col">
               <div className="">
                 <h1 className="text-[40px] max-h-full max-md:text-[30px]  break-words mb-[16px]">
                   {data.getPost.title}
