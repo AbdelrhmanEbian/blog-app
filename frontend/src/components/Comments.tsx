@@ -7,6 +7,7 @@ import { useAuth } from "./AuthContext";
 import {User} from "../schema/type";
 import { GET_COMMENT } from "../schema/query";
 import { SEND_COMMENT, addViewMutaion } from "../schema/mutation";
+import { motion, useInView } from "framer-motion";
 
 const Comments = ({ postId }: { postId: string }) => {
   const { user } = useAuth();
@@ -20,12 +21,16 @@ const Comments = ({ postId }: { postId: string }) => {
       postId: postId,
     },
   });
-  
   const [addView] = useMutation(addViewMutaion, {
     variables: {
       id: postId,
     },
   });
+  const commentVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+    exit:{opacity:0 , x: -50 }
+  };
   useEffect(() => {
     const getAllProviders = async () => {
       const result: any = await getProviders();
@@ -98,8 +103,14 @@ const Comments = ({ postId }: { postId: string }) => {
             desc: string;
             userEmail: { name: string; image: string };
             createdAt: string;
-          }) => (
-            <div key={oneComment.userEmail.name} className="mt-[30px]">
+          } , index : number) => (
+            <motion.div 
+            initial="hidden"
+            whileInView={"visible"}
+            exit={"exit"}
+            variants={commentVariants}
+            viewport={{ once: true, amount: 0.1 }} 
+            transition={{ duration: 1 , delay: index * 0.2 , damping: 10, stiffness: 100 , type:'spring' }} key={oneComment.userEmail.name} className="mt-[30px]">
               <div className="mb-[20px]">
                 <div key={oneComment.userEmail.name} className=" flex items-center gap-2 mb-2">
                   <Image
@@ -124,7 +135,7 @@ const Comments = ({ postId }: { postId: string }) => {
                   {oneComment.desc}
                 </p>
               </div>
-            </div>
+            </motion.div>
           )
         )}
     </div>

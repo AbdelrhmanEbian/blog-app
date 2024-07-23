@@ -1,11 +1,10 @@
-// components/Footer.tsx
 import Image from 'next/image';
 import React from 'react';
 
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary p-10 rounded-lg text-neutral">
+    <footer className="bg-secondary border-neutral-content border-solid border-r-2 border-b-2 border-l-2 p-10 mt-10 rounded-lg text-neutral">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 justify-evenly gap-10">
           <div>

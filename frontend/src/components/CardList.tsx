@@ -39,8 +39,9 @@ const CardList = ({
   }, [postUploaded, postDeleted, userEmail, refetch]);
 
   const cardVariants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0 , x: -50 },
+    visible: { opacity: 1 , x: 0 },
+    exit : {  opacity: 0 , x: -50}
   };
 
   return (
@@ -49,13 +50,15 @@ const CardList = ({
       <div className="my-7 pb-10 min-h-[300px] w-full relative mb-10">
         {loading && <Loading />}
         {data?.getAllPosts?.posts?.length ? (
-          data.getAllPosts.posts.map((post: post) => (
+          data.getAllPosts.posts.map((post : post , index : number) => (
             <motion.div
               key={post.id}
               initial="hidden"
-              animate="visible"
+              whileInView={"visible"}
+              exit={"exit"}
               variants={cardVariants}
-              transition={{ duration:0.5 }}
+              viewport={{ once: true, amount: 0.1 }} 
+              transition={{ duration: 1  , delay: index * 0.2 , damping: 10, stiffness: 100 , type:'spring' }}
             >
               <DynamicCard isWritePath={isWritePath} setPostDeleted={setPostDeleted} post={post} />
             </motion.div>

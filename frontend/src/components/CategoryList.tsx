@@ -1,9 +1,9 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { GET_CATEGORIES } from "../schema/query";
-
+import { motion } from "framer-motion";
 const CategoryList = ({image}:{image:boolean}) => {
 
   const { data, loading, error } = useQuery(GET_CATEGORIES);
@@ -12,6 +12,13 @@ const CategoryList = ({image}:{image:boolean}) => {
       {data &&
         data.getAllCategories.map(
           (category: { title: string; img: string }) => (
+            <motion.div
+             key={category.title}
+            initial={{opacity : 0 , scale:0.6}}
+            viewport={{ once: true, amount: 0.2 }} 
+            whileInView={{opacity : 1 , scale : 1}}
+            transition={{ duration: .5 , type:'tween' }}
+          >
             <Link key={category.title}
               href={"/category/" + category.title}
               className=" p-2 text-md bg-secondary font-bold text-accent flex gap-5 items-center capitalize px-1  justify-center  rounded-lg"
@@ -26,6 +33,7 @@ const CategoryList = ({image}:{image:boolean}) => {
               />)}
               {category.title}
             </Link>
+            </motion.div>
           )
         )}
     </>

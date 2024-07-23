@@ -15,11 +15,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body >
+      <body  className="bg-primary ">
         <Provider>
         <AuthProvider>
-        <div className=" bg-primary transition-all duration-500 min-h-screen">
-      <div className="text-neutral overflow-hidden container mx-auto max-md:px-9 px-[60px] ">
+        <div className=" transition-all duration-500 min-h-screen">
+      <div className="text-neutral overflow-hidden container mx-auto max-md:px-9 px-[20px] ">
         <Nav />
         {children}
       </div>

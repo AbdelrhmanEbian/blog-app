@@ -4,8 +4,6 @@ import PostForm from "./postForm";
 import { useMutation } from "@apollo/client";
 import { useSession } from "next-auth/react";
 import { createPostOnly } from "../schema/mutation";
-import { GET_CATEGORIESOnly, getAllPosts, getMyPosts } from "../schema/query";
-import { post } from "../schema/type";
 import { useAuth } from "./AuthContext";
 import CardList from "./CardList";
 import  { useRouter } from "next/navigation";
