@@ -9,7 +9,7 @@ const Page = ({params} : {params:{id:string}}) => {
       <ApolloWrapper>
         <h1 className=' mb-7 text-3xl text-white text-center px-1 bg-[coral] py-3'>{params.id}</h1>
         <div className=' flex gap-12'>
-            <CardList category={true} categoryName={params.id}/>
+            <CardList isWritePath={false}  category={true} categoryName={params.id}/>
             <Menu/>
         </div>
     </ApolloWrapper>

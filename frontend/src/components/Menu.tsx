@@ -24,9 +24,11 @@ const Menu = () => {
             initial={{opacity:0.5 , scale : 0.8 , y: -30 }}
             whileInView={{opacity:1 , scale : 1 , y: 0 }}
             viewport={{ once: true, amount: 0.1 }} 
-            transition={{ duration: 1 , delay: index * 0.15 , type:'tween' }}>
+            transition={{ duration: 1 , delay: index * 0.15 , type:'tween' }}
+            key={post.id}
+            >
 
-          <Link href={"/blog/"+post.id} key={post.id}>
+          <Link href={"/blog/"+post.id} >
           <div className=" mx-auto p-4 rounded-lg hover:bg-secondary transition-colors ease-in-out duration-500 flex flex-col gap-2 flex-nowrap " >
             <div className=" w-full  flex-nowrap flex justify-between gap-2 items-center">
             <h4 className="py-1 text-[13px] w-max bg-accent font-bold text-white rounded-md px-2">{post.category}</h4>

@@ -30,7 +30,7 @@ const Write = () => {
     if (!user?.email) {
       router.push('/');
     }
-  }, [user])
+  }, [user , router])
   const handleSubmit = async (user: {
     name?: string | null | undefined;
     email?: string | null | undefined;

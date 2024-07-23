@@ -15,7 +15,7 @@ export default function Home() {
         <CategoryList image={true} />
         </div>
         <div className="mt-10 flex gap-10">
-          <CardList />
+          <CardList isWritePath={false}/>
           <Menu />
         </div>
       </ApolloWrapper>
