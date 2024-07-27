@@ -1,7 +1,11 @@
 import Image from "next/image";
 import React from "react";
 import Loading from "./Loading";
-import { GET_CATEGORIES, getAllPosts, getPost } from "../schema/query";
+import {
+  GET_CATEGORIES,
+  getAllPosts,
+  getPost,
+} from "../schema/query";
 import dynamic from "next/dynamic";
 import { client } from "./apolloInitialize";
 const DynamicComments = dynamic(() => import("./Comments"), { ssr: false });
@@ -22,23 +26,13 @@ const SinglePage = async ({ params }: { params: { id: string } }) => {
               <div className="flex items-center gap-4">
                 <div className="h-10 relative w-10">
                   <Image
-                    sizes="(max-width: 600px) 100vw, 
-          (max-width: 1200px) 50vw, 
-          33vw"
-                    loading="lazy"
-                    className="rounded-lg"
+                    alt="image"
+                    src={props?.post.userEmail.image}
                     width={40}
                     height={40}
-                    style={{
-                      objectFit: "contain",
-                      width: "fit-content",
-                      margin: "auto",
-                      height: "100%",
-                    }}
-                    alt={
-                      props?.post.img ? props?.post.title : "Default post image"
-                    }
-                    src={props?.post.img ? props?.post.img : "/p1.jpeg"}
+                    loading={"lazy"}
+                    priority
+                    className="rounded-full object-cover"
                   />
                 </div>
                 <div className=" flex flex-col gap-1 text-accent">
@@ -54,16 +48,23 @@ const SinglePage = async ({ params }: { params: { id: string } }) => {
               </div>
             </div>
             <div className=" max-md:min-h-[175px]  max-md:w-full flex-1 min-h-[350px] relative">
-              <Image
-                sizes="(max-width: 600px) 100vw, 
-                (max-width: 1200px) 50vw, 
-                33vw"
-                loading="eager"
-                fill
-                src={props?.post.img ? props?.post.img : "/p1.jpeg"}
-                className=" rounded-lg "
-                alt="image"
-              />
+            <Image
+          sizes="(max-width: 600px) 100vw, 
+          (max-width: 1200px) 50vw, 
+          33vw"
+          loading="lazy"
+          className="rounded-lg"
+          width={200}
+          height={250}
+          style={{
+            objectFit: "contain",
+            width: "fit-content",
+            margin: "auto",
+            height: "100%",
+          }}
+          alt={props?.post.img ? props?.post.title : "Default post image"}
+          src={props?.post.img ? props?.post.img : "/p1.jpeg"}
+        />
             </div>
           </div>
           <div className=" flex gap-16 mt-16">
@@ -71,7 +72,9 @@ const SinglePage = async ({ params }: { params: { id: string } }) => {
               <div className=" max-md:text-[18px] text-[24px]  break-words font-light">
                 <p>{props?.post.desc}</p>
               </div>
-              <DynamicComments postId={props?.post.id} />
+              <DynamicComments
+                postId={props?.post.id}
+              />
             </div>
             <DynamicMenu
               posts={props?.posts}

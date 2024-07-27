@@ -51,6 +51,7 @@ const UploadImage = ({ setImage }: UploadButtonProps) => {
           </button>
           {
             imageUrl && (
+              <div className="w-full my-5 md:w-1/2 h-[250px] relative">
               <Image
               sizes="(max-width: 600px) 100vw, 
               (max-width: 1200px) 50vw, 
@@ -67,7 +68,8 @@ const UploadImage = ({ setImage }: UploadButtonProps) => {
               }}
               alt={"uploaded post image"}
               src={imageUrl ? imageUrl : "/p1.jpeg"}
-            />
+              />
+              </div>
             )
           }
             </> 
