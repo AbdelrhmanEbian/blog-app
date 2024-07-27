@@ -84,7 +84,7 @@ const CardList = ({
       </div>
       <div className="my-7 pb-10 min-h-[300px] w-full relative mb-10">
         {!loading ? 
-          data.getAllPosts.posts.length > 0 &&
+          (data.getAllPosts.posts.length !== 0 ?
              (data.getAllPosts.posts.map((post: post, index: number) => (
             <motion.div
               key={post.id}
@@ -108,7 +108,13 @@ const CardList = ({
                 post={post}
               />
             </motion.div>
-          )))
+          ))):
+        (
+          <div>
+            <p className=" text-neutral font-medium ">{`sorry there are not any result with search (${currentSearchTerm})`}</p>
+          </div>
+        )
+      )
    : (
           <div className="flex-[5]">
             <DynamicLoading />

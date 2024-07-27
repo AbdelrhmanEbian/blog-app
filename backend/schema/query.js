@@ -21,14 +21,16 @@ const query = new GraphQLObjectType({
         getAllPosts: {
             name: "getPosts",
             type: getAllPostsType,
-            args: { category: { type: GraphQLString } , searchTerm: { type: GraphQLString }, popular: { type: GraphQLBoolean }, page: { type: GraphQLInt }, userEmail: { type: GraphQLString } },
+            args: { category: { type: GraphQLString }, searchTerm: { type: GraphQLString }, popular: { type: GraphQLBoolean }, page: { type: GraphQLInt }, userEmail: { type: GraphQLString } },
             resolve: async (parent, args) => {
                 let query = {};
                 if (args.category) {
                     query.category = args.category;
-                } else if (args.userEmail) {
+                }
+                if (args.userEmail) {
                     query.userEmail = args.userEmail;
-                } else if (args.searchTerm) {
+                }
+                if (args.searchTerm) {
                     query.$or = [
                         { title: { $regex: args.searchTerm, $options: "i" } },
                         { desc: { $regex: args.searchTerm, $options: "i" } },
@@ -50,8 +52,8 @@ const query = new GraphQLObjectType({
                 return {
                     posts,
                     currentPage,
-                    numberOfPages: totalPages,
-                    searchTerm:args.searchTerm
+                    numberOfPages: totalPages || 1,
+                    searchTerm: args.searchTerm
                 };
             },
         },
