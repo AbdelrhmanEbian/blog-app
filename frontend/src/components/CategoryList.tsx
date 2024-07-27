@@ -1,30 +1,35 @@
-import { useQuery } from "@apollo/client";
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { GET_CATEGORIES } from "../schema/query";
 import { motion } from "framer-motion";
-const CategoryList = ({image}:{image:boolean}) => {
-
-  const { data, loading, error } = useQuery(GET_CATEGORIES);
+import dynamic from "next/dynamic";
+import { category } from "../schema/type";
+const DynamicLoading = dynamic(() => import("./Loading"), { ssr: true });
+const CategoryList = ({image , categories , categoriesLoading }:{ categoriesLoading:boolean | undefined ; categories:[category] | undefined ; image:boolean}) => {
+  if (categoriesLoading) {
+    return <DynamicLoading />;
+  }
   return (
     <>
-      {data &&
-        data.getAllCategories.map(
+      {categories?.map(
           (category: { title: string; img: string }) => (
             <motion.div
              key={category.title}
             initial={{opacity : 0 , scale:0.6}}
             viewport={{ once: true, amount: 0.2 }} 
+            whileHover={{ scale: 1.05 }}
             whileInView={{opacity : 1 , scale : 1}}
-            transition={{ duration: .5 , type:'tween' }}
+            transition={{ duration: .1 , type:'tween' }}
           >
             <Link key={category.title}
               href={"/category/" + category.title}
+              aria-label={`Category ${category.title}`}
               className=" p-2 text-md bg-secondary font-bold text-accent flex gap-5 items-center capitalize px-1  justify-center  rounded-lg"
             >
 
               { image  &&(<Image
+              loading="eager"
                 alt="category"
                 className=" rounded-full aspect-square h-12 w-12"
                 src={category.img ? category.img : "/p1.jpeg"}

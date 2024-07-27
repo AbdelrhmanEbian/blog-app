@@ -7,17 +7,6 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      keyframes: {
-        'fade-in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-      },
-      animation: {
-        'fade-in': '1s ease-in-out',
-      },
-    },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
@@ -30,24 +19,24 @@ module.exports = {
     themes: [
       {
         light: {
-          primary: "white",
-          secondary: "#f0f0f0",
-          accent: "#626262",
-          neutral: "black",
-          info: "#0ca6e9",
-          success: "#22c55e",
-          error: "#ef4444",
+          primary: "#ffffff", // White background for light theme
+          secondary: "#f5f5f5", // Light grey for secondary elements
+          accent: "#333333", // Darker grey for accents
+          neutral: "#000000", // Black for neutral text
+          info: "#0ca6e9", // Info color
+          success: "#22c55e", // Success color
+          error: "#ef4444", // Error color
         },
       },
       {
         night: {
-          primary: "#0f172a",
-          neutral: "#ddd",
-          secondary: "#1f273a",
-          accent: "#a6a6a6",
-          info: "#0ca6e9",
-          success: "#22c55e",
-          error: "#ef4444",
+          primary: "#0f172a", // Dark background for night theme
+          secondary: "#1e293b", // Slightly lighter dark background
+          accent: "#cbd5e1", // Lighter grey for accents
+          neutral: "#e2e8f0", // Light grey for neutral text
+          info: "#0ca6e9", // Info color
+          success: "#22c55e", // Success color
+          error: "#ef4444", // Error color
         },
       },
     ],

@@ -14,17 +14,7 @@ export const createPostOnly = gql`
         category: $category
         desc: $desc
       ) {
-        title
         id
-        desc
-        img
-        category
-        createdAt
-        userEmail {
-          name
-          email
-          image
-        }
       }
     }
   `;

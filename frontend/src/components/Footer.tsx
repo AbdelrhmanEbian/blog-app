@@ -1,7 +1,5 @@
-import Image from 'next/image';
-import React from 'react';
-
-
+import Image from "next/image";
+import React from "react";
 const Footer = () => {
   return (
     <footer className="bg-secondary border-neutral-content border-solid border-r-2 border-b-2 border-l-2 p-10 mt-10 rounded-lg text-neutral">
@@ -10,24 +8,56 @@ const Footer = () => {
           <div>
             <h2 className="footer-title">About Us</h2>
             <p>
-              We share creative ideas and interesting stories from around the world.
-              Follow us on our journey to discover more.
+              We share creative ideas and interesting stories from around the
+              world. Follow us on our journey to discover more.
             </p>
           </div>
           <div>
             <h2 className="footer-title">Follow Us</h2>
             <div className="flex space-x-4">
               <a href="#" className="link link-hover">
-                <Image alt='picture' width={40} height={40} src={"/youtube.png"}/>
+                <Image
+                  sizes="(max-width: 768px) 20px, 24px"
+                  quality={90}
+                  priority={true}
+                  alt="youtube image"
+                  width={40}
+                  height={40}
+                  src={"/youtube.png"}
+                />
               </a>
               <a href="#" className="link link-hover">
-              <Image alt='picture' width={40} height={40} src={"/facebook.png"}/>
+                <Image
+                  sizes="(max-width: 768px) 20px, 24px"
+                  quality={90}
+                  priority={true}
+                  alt="facebook image"
+                  width={40}
+                  height={40}
+                  src={"/facebook.png"}
+                />
               </a>
               <a href="#" className="link link-hover">
-              <Image alt='picture' width={40} height={40} src={"/tiktok.png"}/>
+                <Image
+                  sizes="(max-width: 768px) 20px, 24px"
+                  quality={90}
+                  priority={true}
+                  alt="tikrok image"
+                  width={40}
+                  height={40}
+                  src={"/tiktok.png"}
+                />
               </a>
               <a href="#" className="link link-hover">
-              <Image alt='picture' width={40} height={40} src={"/instagram.png"}/>
+                <Image
+                  sizes="(max-width: 768px) 20px, 24px"
+                  quality={90}
+                  priority={true}
+                  alt="instagram image"
+                  width={40}
+                  height={40}
+                  src={"/instagram.png"}
+                />
               </a>
             </div>
           </div>

@@ -1,15 +1,35 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useMutation } from "@apollo/client";
-import {post} from '../schema/type' 
+import { post } from "../schema/type";
 import { deletePost } from "../schema/mutation";
-const Card = ({post , setPostDeleted , isWritePath}:{post:post; isWritePath:boolean ; setPostDeleted : (deletedPost : boolean)=> void}) => {
-  const date = (time : string) : string =>{
-    return new Date(parseInt(time)).toLocaleDateString()
-  }
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { useAuth } from "./AuthContext";
+const Card = ({
+  post,
+  setPostDeleted,
+  isWritePath,
+  searchTerm
+}:{
+  post: post;
+  searchTerm : string ;
+  isWritePath: boolean;
+  setPostDeleted: (deletedPost: boolean) => void;
+}) => {
+  const date = (time: string): string => {
+    return new Date(parseInt(time)).toLocaleDateString();
+  };
   const [deletePostMutation] = useMutation(deletePost);
+  const { user } = useAuth();
+  const router = useRouter();
   const handleDelete = async () => {
+    if (user?.email !== post.userEmail?.email) {
+      toast.error("this is not your own post");
+      router.push("/");
+    }
     try {
       const { data } = await deletePostMutation({
         variables: {
@@ -17,51 +37,81 @@ const Card = ({post , setPostDeleted , isWritePath}:{post:post; isWritePath:bool
         },
       });
       setPostDeleted(true);
+      toast.info("Post deleted successfully");
       // Handle any additional logic after the post is deleted
     } catch (error) {
       console.error("Error deleting post:", error);
     }
   };
+  const highlightText = (text : string , highlight : string) => {
+    if (!highlight?.trim()) {
+      return text;
+    }
+    const regex = new RegExp(`(${highlight})`, "gi");
+    const parts = text.split(regex);
+    return parts.map((part : string , index: number) =>
+      part.toLowerCase() === highlight.toLowerCase() ? (
+        <span key={index} className="bg-slate-300 rounded-lg">
+          {part}
+        </span>
+      ) : (
+        part
+      )
+    );
+  };
   return (
-    <div className=" my-7 flex gap-7 h-[250px] items-center rounded-lg hover:bg-secondary ease-in-out transition-colors duration-500 ">
-      <div className=" w-1/2 h-[250px] relative">
-        <Image className=" rounded-lg" alt="image" fill src={post.img ? post.img : "/p1.jpeg"} />
+    <div className="my-7 flex gap-7 h-[250px] items-center rounded-lg hover:bg-secondary transition-colors duration-500 ease-in-out">
+      <div className="w-1/2 h-[250px] relative">
+        <Image
+          sizes="(max-width: 600px) 100vw, 
+          (max-width: 1200px) 50vw, 
+          33vw"
+          loading="eager"
+          className="rounded-lg"
+          alt={post.img ? post.title : "Default post image"}
+          fill
+          src={post.img ? post.img : "/p1.jpeg"}
+          priority
+        />
       </div>
-      <div className="  gap-4 flex flex-col  w-1/2">
+      <div className="gap-4 flex flex-col w-1/2">
         <div>
-          <span className=" text-gray-500">{date(post.createdAt)} -</span>
-          <span className=" font-bold text-[crismon]">{post.category}</span>
+          <span className="text-gray-500">{date(post.createdAt)} - </span>
+          <span className="font-bold text-crimson">{post.category}</span>
         </div>
-        <h1 className=" text-[24px] font-bold max-h-10 truncate  p-1 ">{post.title}</h1>
-        <p className=" text-[18px] max-h-20 truncate p-1 font-light text-accent ">
-         {post.desc}
+        <h1 className="text-2xl font-bold max-h-10 truncate p-1">
+        {highlightText(post.title, searchTerm)}
+        </h1>
+        <p className="text-lg max-h-20 truncate p-1 font-light text-accent">
+        {highlightText(post.desc, searchTerm)}
         </p>
-        <div className=" flex flex-row justify-between ">
-        <Link
-          className=" h-max hover:text-xl hover:font-semibold transition-all  duration-300 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
-          href={`/blog/${post.id}`}
+        <div className="flex flex-row justify-between">
+          <Link
+            className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 border-b border-crimson"
+            href={`/blog/${post.id}`}
+            aria-label={`Read more about ${post.title}`}
           >
-          Read More
-        </Link>
-        {isWritePath &&
-        (
-        <>
-        <Link
-          className=" h-max hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
-          href={`/write/${post.id}`}
-          >
-          update post
-        </Link>
-        <button
-        onClick={handleDelete}
-          className=" h-max hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-[18px] font-light text-accent p-2 border-b border-[crismon] w-max "
-          >
-          delete
-        </button>
-        </>
-        )
-        }
-          </div>
+            Read More
+          </Link>
+          {isWritePath && (
+            <>
+              <Link
+                className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 border-b border-crimson"
+                href={`/write/${post.id}`}
+                aria-label={`Read more about the blog post titled ${post.title}`}
+                >
+                Update Post
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 border-b border-crimson"
+                aria-label={`Delete post ${post.title}`}
+              >
+                Delete
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

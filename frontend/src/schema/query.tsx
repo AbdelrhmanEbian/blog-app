@@ -9,15 +9,17 @@ query GetPost($id: ID!) {
     category
     userEmail {
       image
+      id
       name
+      email
     }
     createdAt
   }
 }
 `;
 export const getAllPostsOnly = gql`
-    query GetAllPosts($category: String, $page: Int!) {
-      getAllPosts(category: $category, page: $page) {
+    query GetAllPosts($category: String,$userEmail:String,  $page: Int! , $searchTerm: String) {
+      getAllPosts(category: $category, page: $page , userEmail:$userEmail , searchTerm: $searchTerm) {
         posts{
         id
         title
@@ -25,9 +27,13 @@ export const getAllPostsOnly = gql`
         img
         category
         createdAt
+        userEmail{
+        email
+        }
       }
       currentPage
       numberOfPages
+      searchTerm
       }
     }
   `;
@@ -40,6 +46,7 @@ export const getAllPosts = gql`
       img
       createdAt
       userEmail{
+      id
       name
       }}
     }
@@ -67,11 +74,13 @@ export const getAllPosts = gql`
   }
 `;
 export const GET_COMMENT = gql`
-query getComment($postId: ID!) {
+query getAllComments($postId: ID!) {
   getAllComments(postId: $postId) {
     desc
+    id
     userEmail {
       image
+      id
       name
     }
     createdAt

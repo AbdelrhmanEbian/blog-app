@@ -1,65 +1,76 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import CategoryList from "./CategoryList";
-import {  useQuery } from "@apollo/client";
-import { post } from "../schema/type";
-import { getAllPosts } from "../schema/query";
 import { motion } from "framer-motion";
-const Menu = () => {
-  const {data, loading, error} = useQuery(getAllPosts,{
-    variables:{
-      popular:true
-    }
-  })
+import CategoryList from "./CategoryList";
+import { category, post } from "../schema/type";
+import Loading from "./Loading";
+const Menu = ({
+  categories,
+  categoriesLoading,
+  posts
+}: {
+  categoriesLoading: boolean | undefined;
+  posts:[post] ;
+  categories: [category] | undefined;
+}) => {
   return (
-    <div className=" max-lg:hidden  w-1/4">
-      <h2 className=" text-gray-400 text-lg font-[400]">{"what's hot"}</h2>
-      <h1 className=" text-2xl">Most Popular</h1>
-      <div className="flex flex-col gap-3  justify-start my-6">
-        {
-          data &&
-          data.getAllPosts.posts.map((post:post , index : number) => (
-            <motion.div 
-            initial={{opacity:0.5 , scale : 0.8 , y: -30 }}
-            whileInView={{opacity:1 , scale : 1 , y: 0 }}
-            viewport={{ once: true, amount: 0.1 }} 
-            transition={{ duration: 1 , delay: index * 0.15 , type:'tween' }}
+    <div className="hidden lg:block w-1/4">
+      <h2 className="text-gray-400 text-lg font-medium">What is Hot</h2>
+      <h1 className="text-2xl font-bold mb-6">Most Popular</h1>
+      {posts?.length !< 0 && <Loading />}
+      <div className="flex flex-col gap-4">
+        {posts.map((post: post, index: number) => (
+          <motion.div
             key={post.id}
-            >
-
-          <Link href={"/blog/"+post.id} >
-          <div className=" mx-auto p-4 rounded-lg hover:bg-secondary transition-colors ease-in-out duration-500 flex flex-col gap-2 flex-nowrap " >
-            <div className=" w-full  flex-nowrap flex justify-between gap-2 items-center">
-            <h4 className="py-1 text-[13px] w-max bg-accent font-bold text-white rounded-md px-2">{post.category}</h4>
-            <div className="  h-12 relative w-12 ">
-              <Image
-                    alt="image"
-                    src={post.img ? post.img : "/p1.jpeg"}
-                    fill
-                    className="rounded-full object-cover"
-                  />
+            initial={{ opacity: 0.5, scale: 0.8, y: -30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 1, delay: index * 0.15, type: "tween" }}
+          >
+            <Link href={`/blog/${post.id}`} aria-label={post.title}>
+              <div className="p-4 rounded-lg hover:bg-secondary flex transition-colors duration-300  flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="bg-accent text-white font-bold text-xs py-1 px-2 rounded-md">
+                    {post.category}
+                  </h4>
+                  <div className="relative w-12 h-12">
+                    <Image
+                      src={post.img || "/p1.jpeg"}
+                      alt={post.title || "Post Image"}
+                      width={50}
+                      height={50}
+                      className="rounded-full aspect-square object-cover"
+                    />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-accent truncate">
+                  {post.title}
+                </h3>
+                <div className="text-sm text-gray-600">
+                  <span>{post.userEmail.name.split(" ")[0]}</span>
+                  <span className="ml-1 text-gray-400">
+                    {new Date(parseInt(post.createdAt)).toDateString()}
+                  </span>
+                </div>
               </div>
-            </div>
-            <h3 className=" truncate text-2xl font-bold  text-accent">
-            {post.title}
-            </h3>
-            <div className=" text-[12px]">
-              <span>{post.userEmail.name.split(' ')[0]}  </span>
-              <span className="text-gray-400">{new Date(parseInt(post.createdAt)).toDateString()}</span>
-            </div>
-          </div>
-        </Link>
-        </motion.div>
+            </Link>
+          </motion.div>
         ))}
       </div>
-      <h2 className=" text-gray-400 text-lg my-5 font-[400]">Discover by topic</h2>
-      <h1 className=" text-2xl">categories</h1>
-      <div className=" grid grid-cols-3  gap-5 mt-5">
-        <CategoryList image={false}/>
-        </div>
+      <h2 className="text-gray-400 text-lg my-5 font-medium">
+        Discover by Topic
+      </h2>
+      <h1 className="text-2xl font-bold">Categories</h1>
+      <div className="grid grid-cols-3 gap-5 mt-5">
+        <CategoryList
+          categoriesLoading={categoriesLoading}
+          categories={categories}
+          image={false}
+        />
+      </div>
     </div>
   );
 };
-
 export default Menu;

@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-
 const Toggle = () => {
   const [isToggleOn, setIsToggleOn] = useState<boolean>(false);
   useEffect(() => {
@@ -18,7 +17,7 @@ const Toggle = () => {
   return (
     <label className="swap swap-rotate ">
       {/* this hidden checkbox controls the state */}
-      <input type="checkbox" onChange={handleToggle}/>
+      <input type="checkbox" aria-label="toggle" onChange={handleToggle}/>
 
       {/* sun icon */}
       <div className="swap-off p-2 cursor-pointer rounded-full">

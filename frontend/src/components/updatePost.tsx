@@ -8,7 +8,8 @@ import { image } from './Write';
 import { useSession } from 'next-auth/react';
 import { updatePostOnly } from '../schema/mutation';
 import { useRouter } from 'next/navigation';
-
+import { toast } from 'react-toastify';
+import { User } from '../schema/type';
 function UpdatePost({ params }: { params: { id: string } }) {
     const { data: session } = useSession();
     const { user } = useAuth();
@@ -23,20 +24,20 @@ function UpdatePost({ params }: { params: { id: string } }) {
     const [category, setCategory] = useState<undefined | string>(undefined);
     const [desc, setDesc] = useState<null | string>(null);
     const [postId, setPostId] = useState<null | string>(null);
-    const [Error, setError] = useState<null | string>(null);
     const [title, setTitle] = useState<null | string>(null);
-    const [postUpdated, setPostUpdated] = useState<boolean>(false);
-
+    const [userEmail, setUser] = useState<null | User>(null);
     const handleSubmit = async (user: {
         name?: string | null | undefined;
         email?: string | null | undefined;
         image?: string | null | undefined;
     }) => {
-        if (!title || !desc || !category || !Image) {
-            setError("Please fill all fields");
-            return;
+        if (!title || !desc || !category || !Image ) {
+            return toast.error('All fields are required');
         }
-        setError("");    
+        if(user?.email !== userEmail?.email){
+            toast.error('this is not your own post')
+            router.push('/write')
+        }
         const { data } = await reCreatePost({
             variables: {
                 title: title,
@@ -51,43 +52,34 @@ function UpdatePost({ params }: { params: { id: string } }) {
         setDesc(data.updatePost.desc);
         setCategory(data.updatePost.category);
         setImage(data.updatePost.img);
-        setPostUpdated(true);
+        toast.success('Post updated successfully');
     };
 
     useEffect(() => {
         if (data) {
-            const { img, title, category, desc, id } = data.getPost;
+            const { img, title, category, desc, id , userEmail} = data.getPost;
             setImage(img);
             setTitle(title);
             setDesc(desc);
             setCategory(category);
             setPostId(id);
+            setUser(userEmail)
         }
     }, [data, user]);
-
-    useEffect(() => {
-        if (user?.email !== params.id) {
-            router.push('/');
-        }
-    }, [params.id, user?.email, router]);
-
     return (
         <div>
             <PostForm
                 setTitle={setTitle}
-                uploadedPost={false}
                 setCategory={setCategory}
                 setDesc={setDesc}
-                error={Error}
                 postId={postId}
                 setImage={setImage}
-                updatedPost={postUpdated}
                 title={title}
                 desc={desc}
                 category={category}
-                postCreated={postUpdated}
             /> 
             <button
+            aria-label='update post'
                 onClick={() => {
                     if (session?.user) {
                         handleSubmit({

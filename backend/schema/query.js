@@ -9,9 +9,10 @@ const user = require("../models/user");
 const getAllPostsType = new GraphQLObjectType({
     name: 'getAllPostsType',
     fields: {
-        posts: { type: new GraphQLList(postSchema) }, 
-        currentPage: { type: GraphQLInt }, 
-        numberOfPages: { type: GraphQLInt }
+        posts: { type: new GraphQLList(postSchema) },
+        currentPage: { type: GraphQLInt },
+        numberOfPages: { type: GraphQLInt },
+        searchTerm: { type: GraphQLString }
     }
 })
 const query = new GraphQLObjectType({
@@ -19,14 +20,19 @@ const query = new GraphQLObjectType({
     fields: {
         getAllPosts: {
             name: "getPosts",
-            type: getAllPostsType ,
-            args: { category: { type: GraphQLString }, popular: { type: GraphQLBoolean }, page: { type: GraphQLInt }, userEmail : {type:GraphQLString} },
+            type: getAllPostsType,
+            args: { category: { type: GraphQLString } , searchTerm: { type: GraphQLString }, popular: { type: GraphQLBoolean }, page: { type: GraphQLInt }, userEmail: { type: GraphQLString } },
             resolve: async (parent, args) => {
                 let query = {};
                 if (args.category) {
                     query.category = args.category;
                 } else if (args.userEmail) {
                     query.userEmail = args.userEmail;
+                } else if (args.searchTerm) {
+                    query.$or = [
+                        { title: { $regex: args.searchTerm, $options: "i" } },
+                        { desc: { $regex: args.searchTerm, $options: "i" } },
+                    ];
                 }
                 const postsCount = await Post.countDocuments(query);
                 const postsPerPage = 3;
@@ -45,6 +51,7 @@ const query = new GraphQLObjectType({
                     posts,
                     currentPage,
                     numberOfPages: totalPages,
+                    searchTerm:args.searchTerm
                 };
             },
         },
@@ -79,7 +86,7 @@ const query = new GraphQLObjectType({
         getPost: {
             name: "getPost",
             type: postSchema,
-            args: { id: { type: GraphQLID } , popular : {type: GraphQLBoolean}},
+            args: { id: { type: GraphQLID }, popular: { type: GraphQLBoolean } },
             resolve: async (parent, args) => {
                 let post;
                 if (args.popular) {
