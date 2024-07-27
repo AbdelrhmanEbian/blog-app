@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { post } from "../schema/type";
 import { getAllPostsOnly } from "../schema/query";
 import { motion } from "framer-motion";
-
 const CardList = ({
   isWritePath,
   postUploaded,

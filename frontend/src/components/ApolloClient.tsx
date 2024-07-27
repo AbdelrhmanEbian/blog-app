@@ -1,14 +1,7 @@
 'use client'
 import React from "react";
-import { ApolloClient, ApolloProvider, InMemoryCache , HttpLink} from "@apollo/client";
-// Replace with your GraphQL endpoint
-export const client = new ApolloClient({
-  link: new HttpLink({
-    uri: 'https://blog-app-production-4691.up.railway.app/graphql',
-    credentials: 'include', // Ensure credentials are included
-  }),
-  cache: new InMemoryCache(),
-});
+import { client } from "./apolloInitialize";
+import { ApolloProvider } from "@apollo/client";
 const ApolloWrapper = ({ children }: { children: React.ReactNode }) => {
     return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
