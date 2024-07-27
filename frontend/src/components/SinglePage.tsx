@@ -47,7 +47,7 @@ const SinglePage = async ({ params }: { params: { id: string } }) => {
                 </div>
               </div>
             </div>
-            <div className=" max-md:min-h-[175px]  max-md:w-full flex-1 min-h-[350px] relative">
+            <div className="   w-full flex-col items-center justify-between  max-md:w-full flex-1 relative">
             <Image
           sizes="(max-width: 600px) 100vw, 
           (max-width: 1200px) 50vw, 
