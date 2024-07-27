@@ -5,7 +5,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { category } from "../schema/type";
-const DynamicLoading = dynamic(() => import("./Loading"), { ssr: true });
+const DynamicLoading = dynamic(() => import("./Loading"), { ssr: false });
 const CategoryList = ({image , categories , categoriesLoading }:{ categoriesLoading:boolean | undefined ; categories:[category] | undefined ; image:boolean}) => {
   if (categoriesLoading) {
     return <DynamicLoading />;

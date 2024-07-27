@@ -4,7 +4,7 @@ import ApolloWrapper from "../../../components/ApolloClient";
 import { GET_CATEGORIES, getAllPosts } from "../../../schema/query";
 import dynamic from "next/dynamic";
 import { client } from "../../../components/apolloInitialize";
-const DynamicCardList = dynamic(() => import("../../../components/CardList"), { ssr: true });
+const DynamicCardList = dynamic(() => import("../../../components/CardList"), { ssr: false });
 const Page = async ({ params }:{ params: { id: string } }) => {
   const { props } = await getData();
   return (

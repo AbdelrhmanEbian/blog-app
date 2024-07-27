@@ -91,7 +91,7 @@ const Card = ({
             href={`/blog/${post.id}`}
             aria-label={`Read more about ${post.title}`}
           >
-            Read More
+            Explore Post
           </Link>
           {isWritePath && (
             <>

@@ -30,7 +30,7 @@ const Featured = ({ post }: { post: post | null }) => {
           <p className='text-xl break-words md:text-[20px] font-light text-accent'>
             {post?.desc}
           </p>
-            <Link className=' btn-neutral w-max btn ' aria-label={"our popular post is about" + post?.title} href={`blog/${post?.id}`}>Read More</Link>
+            <Link className=' btn-neutral w-max btn ' aria-label={"our popular post is about" + post?.title} href={`blog/${post?.id}`}>Explore Post</Link>
         </div>
       </div>
     </div>

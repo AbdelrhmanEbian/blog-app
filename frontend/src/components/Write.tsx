@@ -8,7 +8,7 @@ import { useAuth } from "./AuthContext";
 import  { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { toast } from "react-toastify";
-const DynamicCardList = dynamic(() => import("./CardList"), { ssr: true });
+const DynamicCardList = dynamic(() => import("./CardList"), { ssr: false });
 export type image = {
   fileName: string;
   publicId: string;

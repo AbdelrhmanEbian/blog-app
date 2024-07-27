@@ -9,7 +9,7 @@ import { SEND_COMMENT, addViewMutaion } from "../schema/mutation";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { comment } from "../schema/type";
-const DynamicLoading = dynamic(() => import("./Loading"), { ssr: true });
+const DynamicLoading = dynamic(() => import("./Loading"), { ssr: false });
 
 const Comments = ({ postId , comments , commentsLoading }: { postId: string , comments:[comment] , commentsLoading:boolean }) => {
   const { user } = useAuth();

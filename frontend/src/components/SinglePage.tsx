@@ -4,8 +4,8 @@ import Loading from "./Loading";
 import { GET_CATEGORIES, GET_COMMENT, getAllPosts, getPost } from "../schema/query";
 import dynamic from "next/dynamic";
 import { client } from "./apolloInitialize";
-const DynamicComments = dynamic(() => import("./Comments"), { ssr: true });
-const DynamicMenu = dynamic(() => import("./Menu"), { ssr: true });
+const DynamicComments = dynamic(() => import("./Comments"), { ssr: false });
+const DynamicMenu = dynamic(() => import("./Menu"), { ssr: false });
 const SinglePage =  async({ params }: { params: { id: string } }) => {
 const {props} = await getData(params)
   return (

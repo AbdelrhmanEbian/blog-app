@@ -16,8 +16,8 @@ const CardList = ({
   userEmail?: string;
   categoryName?: string;
 }) => {
-  const DynamicCard = dynamic(() => import("./Card"), { ssr: true });
-  const DynamicLoading = dynamic(() => import("./Loading"), { ssr: true });
+  const DynamicCard = dynamic(() => import("./Card"), { ssr: false });
+  const DynamicLoading = dynamic(() => import("./Loading"), { ssr: false });
   const [postDeleted, setPostDeleted] = useState<boolean>(false);
   const [currentSearchTerm, setCurrentSearchTerm] = useState<string>("");
   const [inputKey, setInputKey] = useState<number>(0);
