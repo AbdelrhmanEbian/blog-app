@@ -8,9 +8,6 @@
   },
   "keywords": [],
   "author": "",
-  "engines": {
-    "node": "20.3.0"
-  },
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
