@@ -2,17 +2,17 @@ import React from "react";
 import Featured from "../components/Featured";
 import CategoryList from "../components/CategoryList";
 import { GET_CATEGORIES, getAllPosts, getPostOnly } from "../schema/query";
-import ApolloWrapper from "../components/ApolloClient";
+import ApolloWrapper, { client } from "../components/ApolloClient";
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import dynamic from "next/dynamic";
 import Loading from "../components/Loading";
-export const client = new ApolloClient({
-  link: new HttpLink({
-    uri: "https://blog-app-production-4691.up.railway.app/graphql",
-    credentials: "include", // Ensure credentials are included
-  }),
-  cache: new InMemoryCache(),
-});
+// export const client = new ApolloClient({
+//   link: new HttpLink({
+//     uri: "https://blog-app-production-4691.up.railway.app/graphql",
+//     credentials: "include", // Ensure credentials are included
+//   }),
+//   cache: new InMemoryCache(),
+// });
 
 const DynamicCardList = dynamic(() => import("../components/CardList"), {
   ssr: true,

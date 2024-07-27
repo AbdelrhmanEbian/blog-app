@@ -3,14 +3,15 @@ import React from "react";
 import Loading from "./Loading";
 import { GET_CATEGORIES, GET_COMMENT, getAllPosts, getPost } from "../schema/query";
 import dynamic from "next/dynamic";
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
-export const client = new ApolloClient({
-  link: new HttpLink({
-    uri: 'https://blog-app-production-4691.up.railway.app/graphql',
-    credentials: 'include', // Ensure credentials are included
-  }),
-  cache: new InMemoryCache(),
-});
+import { client } from "./ApolloClient";
+// import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+// export const client = new ApolloClient({
+//   link: new HttpLink({
+//     uri: 'https://blog-app-production-4691.up.railway.app/graphql',
+//     credentials: 'include', // Ensure credentials are included
+//   }),
+//   cache: new InMemoryCache(),
+// });
 const DynamicComments = dynamic(() => import("./Comments"), { ssr: true });
 const DynamicMenu = dynamic(() => import("./Menu"), { ssr: true });
 const SinglePage =  async({ params }: { params: { id: string } }) => {
