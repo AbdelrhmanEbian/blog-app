@@ -10,16 +10,25 @@ const Featured = ({ post }: { post: post | null }) => {
       </h1>
       <div className='text-[60px] min-h-[300px] md:flex my-[70px] items-center gap-10'>
         <div className='flex-1 min-h-[300px] max-xl:flex-[2] relative'>
-          <Image
-            sizes="(max-width: 600px) 100vw, 
-                   (max-width: 1200px) 50vw, 
-                   33vw"
-            loading='lazy'
-            src={post?.img || "/p1.jpeg"}
-            alt={post?.title ? post?.title : "Default post image"}
-            fill
-            className='rounded-xl object-fill'
-          />
+        <div className="  h-full  w-full flex-col items-center justify-between  max-md:w-full flex-1 relative">
+            <Image
+          sizes="(max-width: 600px) 100vw, 
+          (max-width: 1200px) 50vw, 
+          33vw"
+          loading="lazy"
+          className="rounded-lg"
+          width={200}
+          height={250}
+          style={{
+            objectFit: "contain",
+            width: "fit-content",
+            margin: "auto",
+            height: "100%",
+          }}
+          alt={post?.img ? post?.title : "Default post image"}
+          src={post?.img ? post?.img : "/p1.jpeg"}
+        />
+            </div>
         </div>
         <div className='gap-5 max-w-full flex max-md:mt-[20px] md:min-h-[300px] justify-evenly flex-col flex-1'>
           <div className='py-1'>

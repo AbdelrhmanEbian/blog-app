@@ -28,14 +28,27 @@ const CategoryList = ({image , categories , categoriesLoading }:{ categoriesLoad
               className=" p-2 text-md bg-secondary font-bold text-accent flex gap-5 items-center capitalize px-1  justify-center  rounded-lg"
             >
 
-              { image  &&(<Image
-              loading="eager"
-                alt="category"
-                className=" rounded-full aspect-square h-12 w-12"
-                src={category.img ? category.img : "/p1.jpeg"}
-                width={50}
-                height={50}
-              />)}
+              { image  &&(
+                <div className="   h-12 w-12 flex-col items-center justify-between  max-md:w-full flex-1 relative">
+                <Image
+              sizes="(max-width: 600px) 100vw, 
+              (max-width: 1200px) 50vw, 
+              33vw"
+              loading="lazy"
+              className="rounded-lg"
+              width={50}
+              height={50}
+              style={{
+                objectFit: "contain",
+                width: "fit-content",
+                margin: "auto",
+                height: "100%",
+              }}
+              alt={category.img ? category.title : "Default post image"}
+              src={category.img ? category.img : "/p1.jpeg"}
+            />
+                </div>
+              )}
               {category.title}
             </Link>
             </motion.div>
