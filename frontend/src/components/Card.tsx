@@ -12,10 +12,10 @@ const Card = ({
   post,
   setPostDeleted,
   isWritePath,
-  searchTerm
-}:{
+  searchTerm,
+}: {
   post: post;
-  searchTerm : string ;
+  searchTerm: string;
   isWritePath: boolean;
   setPostDeleted: (deletedPost: boolean) => void;
 }) => {
@@ -43,13 +43,13 @@ const Card = ({
       console.error("Error deleting post:", error);
     }
   };
-  const highlightText = (text : string , highlight : string) => {
+  const highlightText = (text: string, highlight: string) => {
     if (!highlight?.trim()) {
       return text;
     }
     const regex = new RegExp(`(${highlight})`, "gi");
     const parts = text.split(regex);
-    return parts.map((part : string , index: number) =>
+    return parts.map((part: string, index: number) =>
       part.toLowerCase() === highlight.toLowerCase() ? (
         <span key={index} className="bg-slate-300 rounded-lg">
           {part}
@@ -60,34 +60,40 @@ const Card = ({
     );
   };
   return (
-    <div className="my-7 flex gap-7 h-[250px] items-center rounded-lg hover:bg-secondary transition-colors duration-500 ease-in-out">
-      <div className="w-1/2 h-[250px] relative">
+    <div className="my-7  max-md:border-b-2 pb-1 border-secondary-focus flex max-md:gap-2 max-md:flex-col gap-7 md:h-[250px] items-center rounded-lg hover:bg-secondary transition-colors duration-500 ease-in-out">
+      <div className="w-full md:w-1/2 h-[250px] relative">
         <Image
           sizes="(max-width: 600px) 100vw, 
           (max-width: 1200px) 50vw, 
           33vw"
-          loading="eager"
+          loading="lazy"
           className="rounded-lg"
+          width={100}
+          height={250}
+          style={{
+            objectFit: "contain",
+            width: "fit-content",
+            margin: "auto",
+            height: "100%",
+          }}
           alt={post.img ? post.title : "Default post image"}
-          fill
           src={post.img ? post.img : "/p1.jpeg"}
-          priority
         />
       </div>
-      <div className="gap-4 flex flex-col w-1/2">
+      <div className="gap-4 max-md:gap-1 max-md:w-full flex flex-col md:w-1/2">
         <div>
           <span className="text-gray-500">{date(post.createdAt)} - </span>
           <span className="font-bold text-crimson">{post.category}</span>
         </div>
-        <h1 className="text-2xl font-bold max-h-10 truncate p-1">
-        {highlightText(post.title, searchTerm)}
+        <h1 className="text-2xl font-bold  truncate p-1">
+          {highlightText(post.title, searchTerm)}
         </h1>
-        <p className="text-lg max-h-20 truncate p-1 font-light text-accent">
-        {highlightText(post.desc, searchTerm)}
+        <p className="text-lg truncate p-1 font-light text-accent">
+          {highlightText(post.desc, searchTerm)}
         </p>
         <div className="flex flex-row justify-between">
           <Link
-            className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 border-b border-crimson"
+            className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 md:border-b border-crimson"
             href={`/blog/${post.id}`}
             aria-label={`Read more about ${post.title}`}
           >
@@ -96,15 +102,15 @@ const Card = ({
           {isWritePath && (
             <>
               <Link
-                className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 border-b border-crimson"
+                className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 md:border-b border-crimson"
                 href={`/write/${post.id}`}
                 aria-label={`Read more about the blog post titled ${post.title}`}
-                >
+              >
                 Update Post
               </Link>
               <button
                 onClick={handleDelete}
-                className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 border-b border-crimson"
+                className="hover:text-xl hover:font-semibold transition-all duration-300 ease-in text-lg font-light text-accent p-2 md:border-b border-crimson"
                 aria-label={`Delete post ${post.title}`}
               >
                 Delete
