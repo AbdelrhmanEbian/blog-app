@@ -2,12 +2,15 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
+  "engines": {
+    "node": "20.3.0"
+  },
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
