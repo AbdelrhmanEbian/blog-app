@@ -45,7 +45,9 @@ const Nav = () => {
         />
       </div>
       <div className=" md:text-center text-left  flex-1 max-md:text-2xl text-4xl font-bold">
-        Blog App
+        <Link href={'/'} aria-label="go home">
+          Blog App
+        </Link>
       </div>
       <div className="  justify-end items-center flex lg:gap-1 xl:gap-5 gap-3 flex-1 text-xl">
         <Toggle />

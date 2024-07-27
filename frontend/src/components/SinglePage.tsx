@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import Loading from "./Loading";
-import { GET_CATEGORIES, GET_COMMENT, getAllPosts, getPost } from "../schema/query";
+import { GET_CATEGORIES, getAllPosts, getPost } from "../schema/query";
 import dynamic from "next/dynamic";
 import { client } from "./apolloInitialize";
 const DynamicComments = dynamic(() => import("./Comments"), { ssr: false });
 const DynamicMenu = dynamic(() => import("./Menu"), { ssr: false });
-const SinglePage =  async({ params }: { params: { id: string } }) => {
-const {props} = await getData(params)
+const SinglePage = async ({ params }: { params: { id: string } }) => {
+  const { props } = await getData(params);
   return (
     <div>
       {props ? (
@@ -22,13 +22,23 @@ const {props} = await getData(params)
               <div className="flex items-center gap-4">
                 <div className="h-10 relative w-10">
                   <Image
-                    alt="image"
-                    src={props?.post.userEmail.image}
+                    sizes="(max-width: 600px) 100vw, 
+          (max-width: 1200px) 50vw, 
+          33vw"
+                    loading="lazy"
+                    className="rounded-lg"
                     width={40}
                     height={40}
-                    loading={'eager'}
-                    priority
-                    className="   rounded-full object-cover"
+                    style={{
+                      objectFit: "contain",
+                      width: "fit-content",
+                      margin: "auto",
+                      height: "100%",
+                    }}
+                    alt={
+                      props?.post.img ? props?.post.title : "Default post image"
+                    }
+                    src={props?.post.img ? props?.post.img : "/p1.jpeg"}
                   />
                 </div>
                 <div className=" flex flex-col gap-1 text-accent">
@@ -61,9 +71,13 @@ const {props} = await getData(params)
               <div className=" max-md:text-[18px] text-[24px]  break-words font-light">
                 <p>{props?.post.desc}</p>
               </div>
-              <DynamicComments comments={props?.comments} commentsLoading={props?.commentsLoading} postId={props?.post.id} />
+              <DynamicComments postId={props?.post.id} />
             </div>
-            <DynamicMenu posts={props?.posts} categories={props?.categories} categoriesLoading={props?.categoriesLoading} />
+            <DynamicMenu
+              posts={props?.posts}
+              categories={props?.categories}
+              categoriesLoading={props?.categoriesLoading}
+            />
           </div>
         </div>
       ) : (
@@ -73,39 +87,33 @@ const {props} = await getData(params)
   );
 };
 export default SinglePage;
-export async function getData({id} : {id:string}){
+export async function getData({ id }: { id: string }) {
   try {
-    const { data : post } = await client.query({
+    const { data: post } = await client.query({
       query: getPost,
       variables: {
-        id
+        id,
       },
     });
-    const { data : posts } = await client.query({
+    const { data: posts } = await client.query({
       query: getAllPosts,
       variables: { popular: true },
     });
-    const { data : comments , loading : commentsLoading } = await client.query( {
-      query:GET_COMMENT,
-      variables:{
-        postId : id
-      }  
-    });
-    const { data : categories , loading:categoriesLoading } = await client.query({query: GET_CATEGORIES});
+    const { data: categories, loading: categoriesLoading } = await client.query(
+      { query: GET_CATEGORIES }
+    );
     return {
-        props:{
-          post: post.getPost,
-          comments: comments.getAllComments, 
-          commentsLoading , 
-          posts:posts.getAllPosts.posts,
-          categories:categories.getAllCategories,
-          categoriesLoading
-      }
+      props: {
+        post: post.getPost,
+        posts: posts.getAllPosts.posts,
+        categories: categories.getAllCategories,
+        categoriesLoading,
+      },
     };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return {
-        post: null,
+      post: null,
     };
   }
 }

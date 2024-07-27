@@ -1,12 +1,14 @@
 'use client'
 import { CldUploadWidget } from "next-cloudinary";
 import { image } from "./Write";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import Image from "next/image";
 type UploadButtonProps = {
   setImage: (image: image) => void;
 };
 const UploadImage = ({ setImage }: UploadButtonProps) => {
+  const [imageUrl , setUrl] = useState<string | null>(null)
   const handleUpload = (result: any, error: string | null) => {
     if (result.event === "success" && result.info?.secure_url) {
       // Call the onImageUpload function with the uploaded image URL
@@ -17,6 +19,7 @@ const UploadImage = ({ setImage }: UploadButtonProps) => {
       const secureUrl = result.info.secure_url;
       setImage({ secureUrl, fileName, publicId });
       toast.success('Image uploaded successfully');
+      setUrl(secureUrl)
     } else {
       console.error(error || "Image upload failed");
     }
@@ -46,6 +49,27 @@ const UploadImage = ({ setImage }: UploadButtonProps) => {
             >
             Upload an Image
           </button>
+          {
+            imageUrl && (
+              <Image
+              sizes="(max-width: 600px) 100vw, 
+              (max-width: 1200px) 50vw, 
+              33vw"
+              loading="lazy"
+              className="rounded-lg"
+              width={100}
+              height={250}
+              style={{
+                objectFit: "contain",
+                width: "fit-content",
+                margin: "auto",
+                height: "100%",
+              }}
+              alt={"uploaded post image"}
+              src={imageUrl ? imageUrl : "/p1.jpeg"}
+            />
+            )
+          }
             </> 
         );
       }}

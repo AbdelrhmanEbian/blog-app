@@ -10,11 +10,15 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { comment } from "../schema/type";
 const DynamicLoading = dynamic(() => import("./Loading"), { ssr: false });
-
-const Comments = ({ postId , comments , commentsLoading }: { postId: string , comments:[comment] , commentsLoading:boolean }) => {
+const Comments = ({ postId  }: { postId: string  }) => {
   const { user } = useAuth();
   const [comment, setComment] = useState<string>("");
   const [providers, setProviders] = useState<any>(null);
+  const { data, loading } = useQuery(GET_COMMENT, {
+    variables: {
+      postId
+    },
+  });
   const [addView] = useMutation(addViewMutaion, {
     variables: {
       id: postId,
@@ -57,7 +61,8 @@ const Comments = ({ postId , comments , commentsLoading }: { postId: string , co
       console.log(error);
     }
   };
-  if (commentsLoading) {
+  console.log(data)
+  if (loading) {
     return <DynamicLoading />;
   }
   return (
@@ -94,8 +99,8 @@ const Comments = ({ postId , comments , commentsLoading }: { postId: string , co
           </button>
         ))
       )}
-      {comments.length  > 0  &&
-        comments.map(
+      {data.getAllComments.length  > 0  &&
+        data.getAllComments.map(
           (
             oneComment: comment,
             index: number
