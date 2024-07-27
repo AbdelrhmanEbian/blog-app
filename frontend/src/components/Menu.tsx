@@ -21,7 +21,7 @@ const Menu = ({
       <h1 className="text-2xl font-bold mb-6">Most Popular</h1>
       {posts?.length !< 0 && <Loading />}
       <div className="flex flex-col gap-4">
-        {posts.map((post: post, index: number) => (
+        {posts?.map((post: post, index: number) => (
           <motion.div
             key={post.id}
             initial={{ opacity: 0.5, scale: 0.8, y: -30 }}
