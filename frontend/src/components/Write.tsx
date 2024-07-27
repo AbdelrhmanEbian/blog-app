@@ -25,7 +25,7 @@ const Write = () => {
   const { data: session , status } = useSession();
   const router = useRouter()
   useEffect(() => {
-    if (status !== "loading" && !user?.email) {
+    if (status !== "loading" && !session?.user) {
       router.push('/');
     }
   }, [user, router, session , status]);
