@@ -1,14 +1,15 @@
-const express = require('express')
-const {graphqlHTTP} = require('express-graphql')
-const graphql = require('graphql')
-const query = require('./schema/query')
-const mutation = require('./schema/mutation')
-const mongoose = require('mongoose')
-const post = require('./models/post')
-const user = require('./models/user')
-require('dotenv').config()
-const { GraphQLSchema } = graphql
-const app = express()
+const express = require('express');
+const { graphqlHTTP } = require('express-graphql');
+const graphql = require('graphql');
+const query = require('./schema/query');
+const mutation = require('./schema/mutation');
+const mongoose = require('mongoose');
+const post = require('./models/post');
+const user = require('./models/user');
+require('dotenv').config();
+const { GraphQLSchema } = graphql;
+const app = express();
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'https://blog-app-puce-eta.vercel.app'); // Replace '*' with specific origins if needed
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -22,20 +23,28 @@ app.use((req, res, next) => {
         next();
     }
 });
-const schema = new GraphQLSchema({ query , mutation})
+
+const schema = new GraphQLSchema({ query, mutation });
+
 app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true,
-}))
-const port = process.env.PORT || 4000
-const start =async()=>{
-    await mongoose.connect(process.env.URI,{
-        useNewUrlParser:true,
-        useUnifiedTopology:true
-    })
-    app.listen(port, () => {
-        console.log('running')
-    })
-    
-}
-start()
+}));
+
+const port = process.env.PORT || 4000;
+
+const start = async () => {
+    try {
+        await mongoose.connect(process.env.URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        app.listen(port, () => {
+            console.log(`Server running on port ${port}`);
+        });
+    } catch (error) {
+        console.error('Failed to start the server:', error);
+    }
+};
+
+start();
