@@ -27,7 +27,7 @@ app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true,
 }))
-const port = 4000 || process.env.PORT
+const port = process.env.PORT || 4000
 const start =async()=>{
     await mongoose.connect(process.env.URI,{
         useNewUrlParser:true,
