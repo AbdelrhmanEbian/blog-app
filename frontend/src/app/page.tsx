@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 import Loading from "../components/Loading";
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: "blog-app-production-4691.up.railway.app/graphql",
+    uri: "https://blog-app-production-4691.up.railway.app/graphql",
     credentials: "include", // Ensure credentials are included
   }),
   cache: new InMemoryCache(),

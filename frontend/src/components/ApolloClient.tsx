@@ -4,7 +4,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache , HttpLink} from "@apollo/c
 // Replace with your GraphQL endpoint
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'blog-app-production-4691.up.railway.app/graphql',
+    uri: 'https://blog-app-production-4691.up.railway.app/graphql',
   }),
   cache: new InMemoryCache(),
 });

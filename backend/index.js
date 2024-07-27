@@ -28,7 +28,7 @@ const schema = new GraphQLSchema({ query, mutation });
 
 app.use('/graphql', graphqlHTTP({
     schema,
-    graphiql: true,
+    graphiql: false,
 }));
 
 const port = process.env.PORT || 4000;
