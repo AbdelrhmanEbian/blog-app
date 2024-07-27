@@ -16,7 +16,7 @@ const SinglePage = async ({ params }: { params: { id: string } }) => {
     <div>
       {props ? (
         <div>
-          <div className=" flex max-md:flex-col-reverse items-center gap-16">
+          <div className=" flex h-[350px] max-md:flex-col-reverse items-center max-md:gap-3 gap-16">
             <div className="flex-1 md:w-1/2 max-md:min-h-[100px] min-h-[350px] justify-between py-3 flex flex-col">
               <div className="">
                 <h1 className="text-[40px] max-h-full max-md:text-[30px]  break-words mb-[16px]">
@@ -47,7 +47,7 @@ const SinglePage = async ({ params }: { params: { id: string } }) => {
                 </div>
               </div>
             </div>
-            <div className="   w-full flex-col items-center justify-between  max-md:w-full flex-1 relative">
+            <div className="  h-full  w-full flex-col items-center justify-between  max-md:w-full flex-1 relative">
             <Image
           sizes="(max-width: 600px) 100vw, 
           (max-width: 1200px) 50vw, 
