@@ -111,7 +111,7 @@ const CardList = ({
           ))):
         (
           <div>
-            <p className=" text-neutral font-medium ">{`sorry there are not any result with search (${currentSearchTerm})`}</p>
+            <p className=" text-neutral font-medium ">{`sorry there are not any result ${ currentSearchTerm.length !== 0 && "with search " + currentSearchTerm})`}</p>
           </div>
         )
       )

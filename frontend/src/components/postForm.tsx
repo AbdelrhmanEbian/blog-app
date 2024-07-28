@@ -72,7 +72,7 @@ function PostForm({
         {categories &&
           categories.length > 0 &&
           categories.map((oneCategory) => (
-            <option key={oneCategory.title}>{oneCategory.title}</option>
+            <option className=" cursor-pointer p-3 text-lg hover:pl-4" key={oneCategory.title}>{oneCategory.title}</option>
           ))}
       </select>
       <br />
