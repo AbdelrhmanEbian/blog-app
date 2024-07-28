@@ -65,7 +65,7 @@ export async function getData() {
         query: GET_CATEGORIES,
         context: {
           fetchOptions: {
-            next: { revalidate: 60 * 60 * 24 },
+            next: { revalidate: 3 },
           },
         },
       }
