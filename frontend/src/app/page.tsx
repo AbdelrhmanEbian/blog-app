@@ -18,7 +18,7 @@ const Page = async () => {
       {props?.categoriesLoading === false && (
         <>
           <h1 className=" font-bold text-3xl my-[50px]">popular categories</h1>
-          <div className=" grid   sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 2xl:grid-cols-6 items-center justify-between gap-5">
+          <div className=" grid   sm:grid-cols-3 lg:grid-cols-5 grid-cols-1 2xl:grid-cols-6 items-center justify-between gap-5">
             {!props?.categoriesLoading? (
               <CategoryList
                 categoriesLoading={props?.categoriesLoading}

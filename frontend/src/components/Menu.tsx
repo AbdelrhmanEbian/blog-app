@@ -63,7 +63,7 @@ const Menu = ({
         Discover by Topic
       </h2>
       <h1 className="text-2xl font-bold">Categories</h1>
-      <div className="grid grid-cols-3 gap-5 mt-5">
+      <div className="grid grid-cols-2 gap-5 mt-5">
         <CategoryList
           categoriesLoading={categoriesLoading}
           categories={categories}

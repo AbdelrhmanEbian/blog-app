@@ -27,7 +27,8 @@ const CategoryList = ({image , categories , categoriesLoading }:{ categoriesLoad
               aria-label={`Category ${category.title}`}
               className=" p-2 text-md bg-secondary font-bold text-accent flex gap-5 items-center capitalize px-1  justify-center  rounded-lg"
             >
-              { image  &&(<Image
+              { image  &&
+              (<Image
               loading="eager"
                 alt="category"
                 className=" rounded-full aspect-square h-12 w-12"
