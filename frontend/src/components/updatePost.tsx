@@ -21,6 +21,7 @@ function UpdatePost({ params }: { params: { id: string } }) {
     const router = useRouter();
     const [reCreatePost] = useMutation(updatePostOnly);
     const [Image, setImage] = useState<null | image>(null);
+    const [prevousImage, setprevousImage] = useState<null | string>(null);
     const [category, setCategory] = useState<undefined | string>(undefined);
     const [desc, setDesc] = useState<null | string>(null);
     const [postId, setPostId] = useState<null | string>(null);
@@ -60,6 +61,7 @@ function UpdatePost({ params }: { params: { id: string } }) {
             const { img, title, category, desc, id , userEmail} = data.getPost;
             setImage(img);
             setTitle(title);
+            setprevousImage(img)
             setDesc(desc);
             setCategory(category);
             setPostId(id);
@@ -72,7 +74,7 @@ function UpdatePost({ params }: { params: { id: string } }) {
                 setTitle={setTitle}
                 setCategory={setCategory}
                 setDesc={setDesc}
-                image={Image?.secureUrl ? Image.secureUrl : ""}
+                image={prevousImage ? prevousImage : ""}
                 postId={postId}
                 setImage={setImage}
                 title={title}
