@@ -25,7 +25,7 @@ const CategoryList = ({image , categories , categoriesLoading }:{ categoriesLoad
             <Link key={category.title}
               href={"/category/" + category.title}
               aria-label={`Category ${category.title}`}
-            className={` p-2 text-md bg-secondary font-bold text-accent flex gap-5 items-center capitalize px-1  rounded-lg ${ !category.img && " justify-between"}`}
+            className={` p-2 text-md bg-secondary font-bold text-accent flex gap-5 items-center capitalize px-1  rounded-lg ${ !image && " justify-between"}`}
             >
               { image  &&
               (<Image
