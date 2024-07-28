@@ -9,7 +9,7 @@ const Featured = ({ post }: { post: post | null }) => {
         <span className="font-bold text-4xl md:text-5xl">Hey , There!</span> Discover new stories
         and creative ideas.
       </h1>
-      <div className="text-[60px]my-7  max-md:border-b-2 pb-1 border-secondary-focus flex max-md:gap-2 max-md:flex-col gap-7 md:h-[350px] items-center rounded-lg ">
+      <div className="text-[60px] my-7  max-md:border-b-2 pb-1 border-secondary-focus flex max-md:gap-2 max-md:flex-col gap-7 md:h-[350px] items-center rounded-lg ">
         <div className="w-full md:w-1/2 h-[350px] relative">
           <Image
             sizes="(max-width: 600px) 100vw, 
