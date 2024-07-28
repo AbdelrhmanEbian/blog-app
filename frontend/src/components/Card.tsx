@@ -60,7 +60,7 @@ const Card = ({
     );
   };
   return (
-    <div className="my-7  max-md:border-b-2 pb-1 border-secondary-focus flex max-md:gap-2 max-sm:flex-col gap-7 md:h-[250px] items-center rounded-lg hover:bg-secondary transition-colors duration-500 ease-in-out">
+    <div className="my-7  max-md:border-b-2 pb-1 border-secondary-focus flex max-md:gap-2 max-md:flex-col gap-7 md:h-[250px] items-center rounded-lg hover:bg-secondary transition-colors duration-500 ease-in-out">
       <div className="w-full md:w-1/2 h-[250px] relative">
         <Image
           sizes="(max-width: 600px) 100vw, 
