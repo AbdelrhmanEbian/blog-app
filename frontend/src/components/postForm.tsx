@@ -10,6 +10,7 @@ type PostFormProps = {
   setDesc: (desc: string) => void | null;
   title: string | null;
   desc: string | null;
+  image: string | null;
   category: string | undefined;
   setCategory: (category: string) => void | null;
 };
@@ -18,6 +19,7 @@ function PostForm({
   setCategory,
   setDesc,
   setImage,
+  image,
   postId,
   title,
   desc,
@@ -58,7 +60,7 @@ function PostForm({
           placeholder="Description"
         />
       </div>
-      <UploadImage setImage={setImage} />
+      <UploadImage image={image} setImage={setImage} />
       <select
         onChange={(e) => setCategory(e.target.value)}
         aria-label="category"

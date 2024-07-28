@@ -57,6 +57,7 @@ const Write = () => {
   return (
     <div>
    <PostForm
+        image={''}
         setTitle={setTitle}
         setCategory={setCategory}
         setDesc={setDesc}

@@ -72,6 +72,7 @@ function UpdatePost({ params }: { params: { id: string } }) {
                 setTitle={setTitle}
                 setCategory={setCategory}
                 setDesc={setDesc}
+                image={Image?.secureUrl ? Image.secureUrl : ""}
                 postId={postId}
                 setImage={setImage}
                 title={title}

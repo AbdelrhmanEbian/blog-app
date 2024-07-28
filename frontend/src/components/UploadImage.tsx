@@ -6,8 +6,9 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 type UploadButtonProps = {
   setImage: (image: image) => void;
+  image:string | null
 };
-const UploadImage = ({ setImage }: UploadButtonProps) => {
+const UploadImage = ({ setImage , image }: UploadButtonProps) => {
   const [imageUrl , setUrl] = useState<string | null>(null)
   const handleUpload = (result: any, error: string | null) => {
     if (result.event === "success" && result.info?.secure_url) {
@@ -50,7 +51,7 @@ const UploadImage = ({ setImage }: UploadButtonProps) => {
             Upload an Image
           </button>
           {
-            imageUrl && (
+            (imageUrl || image) && (
               <div className="w-full my-5  h-[300px] relative">
               <Image
               sizes="(max-width: 600px) 100vw, 
@@ -67,7 +68,7 @@ const UploadImage = ({ setImage }: UploadButtonProps) => {
                 height: "100%",
               }}
               alt={"uploaded post image"}
-              src={imageUrl ? imageUrl : "/p1.jpeg"}
+              src={imageUrl ? imageUrl : (image ? image : '')}
               />
               </div>
             )
