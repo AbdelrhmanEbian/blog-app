@@ -9,7 +9,7 @@ const Page = async ({ params }:{ params: { id: string } }) => {
   const { props } = await getData();
   return (
     <div>
-      <h1 className=" mb-7 text-3xl text-accent rounded-lg text-center px-1 bg-secondary py-3">
+      <h1 className=" mb-7 text-3xl font-bold text-accent rounded-lg text-center px-1 bg-secondary py-3">
         {params.id}
       </h1>
       <div className=" flex gap-12">
