@@ -112,8 +112,8 @@ const Comments = ({ postId  }: { postId: string  }) => {
               variants={commentVariants}
               viewport={{ once: true, amount: 0.1 }}
               transition={{
-                duration: 1,
-                delay: index * 0.2,
+                duration: .5,
+                delay: index * 0.1,
                 damping: 10,
                 stiffness: 100,
                 type: "spring",
